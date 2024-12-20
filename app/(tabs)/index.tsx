@@ -1,74 +1,95 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { View, Text, ScrollView } from "react-native";
+import React from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+import { FontAwesome } from "@expo/vector-icons";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+const gasLeaksHistory = [
+  {
+    id: 1,
+    date: "2023-01-01 00:00:00",
+    gasLeak: 234.5,
+  },
+  {
+    id: 2,
+    date: "2023-01-02 00:00:00",
+    gasLeak: 234.5,
+  },
+  {
+    id: 3,
+    date: "2023-01-03 00:00:00",
+    gasLeak: 234.5,
+  },
+  {
+    id: 4,
+    date: "2023-01-04 00:00:00",
+    gasLeak: 234.5,
+  },
+  {
+    id: 5,
+    date: "2023-01-05 00:00:00",
+    gasLeak: 234.5,
+  },
+];
 
-export default function HomeScreen() {
+export default function Home() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <>
+      <SafeAreaView className="h-full bg-primary">
+        <ScrollView contentContainerStyle={{ height: "100%" }}>
+          <View className="w-full min-h-[85vh] px-4 mt-4">
+            <Text className="mb-4 text-2xl text-white font-psemibold">
+              Gasafe
+            </Text>
+            <View className="justify-center w-full bg-white rounded-md h-72">
+              <Text className="text-2xl text-primary font-psemibold">
+                Ini Chart
+              </Text>
+            </View>
+            <View className="w-full mt-4">
+              <Text className="text-lg text-white font-psemibold">
+                Gas Leaks History
+              </Text>
+              {gasLeaksHistory.map((item) => (
+                <History
+                  key={item.id}
+                  date={item.date}
+                  gasLeak={item.gasLeak}
+                />
+              ))}
+            </View>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+      <StatusBar backgroundColor={"#161622"} style="light" />
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+const History = (item: any) => {
+  return (
+    <View className="flex-row items-center w-full gap-4 mt-4">
+      <View className="flex items-center justify-center w-10 h-10 bg-red-500 border border-red-500 rounded-full">
+        <FontAwesome name="warning" color={"#ffe001"} size={16} />
+      </View>
+      <View>
+        <Text className="text-white font-pregular">
+          {dateFormat(item.date)}
+        </Text>
+        <Text className="text-white font-pregular">{item.gasLeak} ppm</Text>
+      </View>
+    </View>
+  );
+};
+
+const dateFormat = (date: string) => {
+  const options: Intl.DateTimeFormatOptions = {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  };
+  return new Date(date).toLocaleDateString("id-ID", options);
+};
