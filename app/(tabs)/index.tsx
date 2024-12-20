@@ -3,6 +3,7 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import { FontAwesome } from "@expo/vector-icons";
+import Chart from "@/components/Chart";
 
 const gasLeaksHistory = [
   {
@@ -41,11 +42,7 @@ export default function Home() {
             <Text className="mb-4 text-2xl text-white font-psemibold">
               Gasafe
             </Text>
-            <View className="justify-center w-full bg-white rounded-md h-72">
-              <Text className="text-2xl text-primary font-psemibold">
-                Ini Chart
-              </Text>
-            </View>
+            <Chart />
             <View className="w-full mt-4">
               <Text className="text-lg text-white font-psemibold">
                 Gas Leaks History
