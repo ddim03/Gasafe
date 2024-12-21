@@ -59,7 +59,7 @@ export default function TabLayout() {
           headerShown: false,
           tabBarIcon: ({ color, focused }) => (
             <TabIcon
-              icon={<FontAwesome size={24} name="gear" color={color} />}
+              icon={<FontAwesome size={24} name="wrench" color={color} />}
               color={color}
               name={"Tools"}
               focused={focused}

@@ -45,7 +45,7 @@ export default function Home() {
             <Chart />
             <View className="w-full mt-4">
               <Text className="text-lg text-white font-psemibold">
-                Gas Leaks History
+                Recent Gas Leaks
               </Text>
               {gasLeaksHistory.map((item) => (
                 <History
