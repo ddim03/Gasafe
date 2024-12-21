@@ -65,8 +65,8 @@ export default function Tools() {
   return (
     <>
       <SafeAreaView className="h-full mt-4 bg-primary">
-        <ScrollView contentContainerStyle={{ height: "100%" }}>
-          <View className="w-full min-h-[85vh] px-4 mt-8">
+        <ScrollView contentContainerStyle={{ minHeight: "100%" }}>
+          <View className="w-full min-h-[85vh] px-4 py-5 mt-8">
             <Text className="mb-4 text-2xl text-white font-psemibold">
               Tools
             </Text>
