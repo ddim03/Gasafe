@@ -96,6 +96,7 @@ export default function Tools() {
                 >
                   <Text className="text-lg text-white font-psemibold">
                     {isDeviceEnabled ? "OFF" : "ON"}
+                    {processDevice && "Processing..."}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -118,10 +119,11 @@ export default function Tools() {
                     (isDeviceEnabled ? "bg-secondary-100" : "bg-gray-400")
                   }
                   onPress={toggleSwitchAlarm}
-                  disabled={!isDeviceEnabled}
+                  disabled={!isDeviceEnabled || processDevice}
                 >
                   <Text className="text-lg text-white font-psemibold">
                     {isAlarmEnabled ? "OFF" : "ON"}
+                    {processAlarm && "Processing..."}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -146,10 +148,11 @@ export default function Tools() {
                     (isDeviceEnabled ? "bg-secondary-100" : "bg-gray-400")
                   }
                   onPress={toggleSwitchFan}
-                  disabled={!isDeviceEnabled}
+                  disabled={!isDeviceEnabled || processDevice}
                 >
                   <Text className="text-lg text-white font-psemibold">
                     {isFanEnabled ? "OFF" : "ON"}
+                    {processFan && "processing..."}
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -193,10 +196,10 @@ export default function Tools() {
                     (isDeviceEnabled ? "bg-secondary-100" : "bg-gray-400")
                   }
                   onPress={handleSaveInterval}
-                  disabled={!isDeviceEnabled}
+                  disabled={!isDeviceEnabled || processDevice}
                 >
                   <Text className="text-lg text-white font-psemibold">
-                    Save
+                    {processInterval ? "Processing..." : "Save"}
                   </Text>
                 </TouchableOpacity>
               </View>
