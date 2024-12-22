@@ -61,8 +61,6 @@ export default function Tools() {
     setInterval(initialInterval);
   }, [rootRefStatus]);
 
-  console.log(isAlarmEnabled, isFanEnabled, isDeviceEnabled, interval);
-
   // process state
   const [processAlarm, setProcessAlarm] = useState(false);
   const [processFan, setProcessFan] = useState(false);
