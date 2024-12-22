@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import { FontAwesome } from "@expo/vector-icons";
 import Chart from "@/components/Chart";
 import { dateFormat } from "@/utils/dateFormat";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, query, limitToLast } from "firebase/database";
 import { database } from "@/lib/firebase";
 
 type GasData = {
@@ -19,25 +19,29 @@ export default function Home() {
   const [history, setHistory] = useState<GasData[]>();
 
   useEffect(() => {
-    const gasRef = ref(database, "data_gas");
+    const gasRef = query(ref(database, "data_gas"), limitToLast(5));
     onValue(gasRef, (snapshot) => {
       const data = snapshot.val();
-      const filteredData = Object.values(data) as GasData[];
-      const ppm = filteredData.map((item: GasData) => item.ppm) as number[];
-      const date = filteredData.map((item: GasData) =>
-        dateFormat(item.date as string, "short")
-      ) as string[];
-      setLabel(date);
-      setData(ppm);
+      if (data) {
+        const filteredData = Object.values(data) as GasData[];
+        const ppm = filteredData.map((item: GasData) => item.ppm) as number[];
+        const date = filteredData.map((item: GasData) =>
+          dateFormat(item.date as string, "short")
+        ) as string[];
+        setLabel(date);
+        setData(ppm);
+      }
     });
   }, []);
 
   useEffect(() => {
-    const gasRef = ref(database, "data_gas_leaks");
+    const gasRef = query(ref(database, "data_gas_leaks"), limitToLast(5));
     onValue(gasRef, (snapshot) => {
       const data = snapshot.val();
-      const filteredData = Object.values(data) as GasData[];
-      setHistory(filteredData);
+      if (data) {
+        const filteredData = Object.values(data) as GasData[];
+        setHistory(filteredData);
+      }
     });
   }, []);
 
