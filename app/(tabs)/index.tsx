@@ -37,7 +37,6 @@ export default function Home() {
     onValue(gasRef, (snapshot) => {
       const data = snapshot.val();
       const filteredData = Object.values(data) as GasData[];
-      console.log(filteredData);
       setHistory(filteredData);
     });
   }, []);
